@@ -1,7 +1,13 @@
+import { Navbar } from "./components";
+
 import "./App.css";
 
 function App() {
-  return <h1>Auth App</h1>;
+  return (
+    <div className="app">
+      <Navbar />
+    </div>
+  );
 }
 
 export default App;
