@@ -44,10 +44,18 @@ export default function SignUp() {
           or continue with a social profile
         </p>
         <ul className="sign-up__social-profiles">
-          <li>Google</li>
-          <li>Facebook</li>
-          <li>Twitter</li>
-          <li>Github</li>
+          <li>
+            <img src="/Google.svg" />
+          </li>
+          <li>
+            <img src="/Facebook.svg" />
+          </li>
+          <li>
+            <img src="/Twitter.svg" />
+          </li>
+          <li>
+            <img src="/Github.svg" />
+          </li>
         </ul>
       </div>
       <div className="sign-up__already-a-member">

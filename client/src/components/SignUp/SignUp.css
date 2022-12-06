@@ -81,7 +81,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 10px 20px;
 }
 
 .sign-up__already-a-member {
