@@ -25,33 +25,6 @@
   gap: 15px;
 }
 
-.sign-up__field-label {
-  position: relative;
-}
-
-.sign-up__field-icon {
-  position: absolute;
-  height: max-content;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  left: 15px;
-}
-
-.sign-up__field {
-  padding: 13px 15px 13px 45px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.sign-up__field:focus-visible {
-  border: 1px solid transparent;
-  outline: 2px solid #2f80ed;
-}
-
 .sign-up__submit-button {
   text-align: center;
   font-size: 16px;
