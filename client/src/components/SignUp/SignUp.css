@@ -41,7 +41,7 @@
   text-align: center;
   font-size: 16px;
   padding: 9px 0;
-  background-color: #2f80ed;
+  background-color: #2f70ed;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -58,6 +58,7 @@
 
 .sign-up__use-social-profile__description {
   margin-bottom: 22px;
+  color: #6a6969;
 }
 
 .sign-up__social-profiles {
@@ -70,6 +71,7 @@
 
 .sign-up__already-a-member {
   text-align: center;
+  color: #6a6969;
 }
 
 .sign-up__login-link {
