@@ -1,0 +1,82 @@
+.sign-up {
+  margin: 25px auto;
+  max-width: 400px;
+}
+
+.sign-up__title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.sign-up__description {
+  font-size: 16px;
+}
+
+.sign-up__form {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  margin: 31px 0;
+}
+
+.sign-up__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sign-up__field {
+  padding: 13px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.sign-up__field:focus-visible {
+  border: 1px solid transparent;
+  outline: 2px solid #2f80ed;
+}
+
+.sign-up__submit-button {
+  text-align: center;
+  font-size: 16px;
+  padding: 9px 0;
+  background-color: #2f80ed;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+}
+
+.sign-up__submit-button:hover {
+  background-color: #2e70cd;
+}
+
+.sign-up__use-social-profile {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.sign-up__use-social-profile__description {
+  margin-bottom: 22px;
+}
+
+.sign-up__social-profiles {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sign-up__already-a-member {
+  text-align: center;
+}
+
+.sign-up__login-link {
+  text-decoration: none;
+  color: #29739d;
+}
+
+.sign-up__login-link:hover {
+  color: #194e6c;
+}
