@@ -1,3 +1,5 @@
+import { MailIcon, PasswordIcon } from "../Icons";
+
 import "./SignUp.css";
 
 export default function SignUp() {
@@ -12,12 +14,26 @@ export default function SignUp() {
       </p>
       <form className="sign-up__form">
         <div className="sign-up__fields">
-          <input className="sign-up__field" type="email" placeholder="Email" />
-          <input
-            className="sign-up__field"
-            type="password"
-            placeholder="Password"
-          />
+          <label className="sign-up__field-label">
+            <span className="sign-up__field-icon">
+              <MailIcon />
+            </span>
+            <input
+              className="sign-up__field"
+              type="email"
+              placeholder="Email"
+            />
+          </label>
+          <label className="sign-up__field-label">
+            <span className="sign-up__field-icon">
+              <PasswordIcon />
+            </span>
+            <input
+              className="sign-up__field"
+              type="password"
+              placeholder="Password"
+            />
+          </label>
         </div>
         <button className="sign-up__submit-button" type="submit">
           Start coding now
