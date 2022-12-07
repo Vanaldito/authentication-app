@@ -1,9 +1,12 @@
 import express from "express";
 import path from "path";
+import { database } from "./src/models";
 
 import apiRouter from "./src/routes/api";
 
 async function main() {
+  await database.connect();
+
   const app = express();
 
   if (process.env.VEREX_ENV === "production") {
