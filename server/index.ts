@@ -13,6 +13,8 @@ async function main() {
     app.use("/", express.static(path.join(__dirname, "static")));
   }
 
+  app.use(express.json());
+
   app.use("/api/v1", apiRouter);
 
   app.get("/", (_req, res) => {
