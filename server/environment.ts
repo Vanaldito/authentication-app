@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
+import path from "path";
 
-dotenv.config({ path: ".env.local" });
+dotenv.config({ path: path.join(__dirname, ".env.local") });
 
 const env = process.env;
 
