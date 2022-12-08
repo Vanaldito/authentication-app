@@ -11,12 +11,16 @@ export default function SignUp() {
   function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
 
-    if (
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(event.target.value)
+    if (event.target.value.trim() === "") {
+      event.target.setCustomValidity("Please fill out this field");
+    } else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(event.target.value)
     ) {
       event.target.setCustomValidity(
         "Password must contain at least 8 characters, including UPPER/lowercase and numbers"
       );
+    } else {
+      event.target.setCustomValidity("");
     }
   }
 
@@ -54,7 +58,7 @@ export default function SignUp() {
             placeholder="Password"
             value={password}
             onChange={changePassword}
-            pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/"
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}"
           />
         </div>
         <button className="sign-up__submit-button" type="submit">
