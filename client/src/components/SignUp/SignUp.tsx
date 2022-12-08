@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { registerUser } from "../../services";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
 
@@ -14,7 +15,7 @@ export default function SignUp() {
     if (event.target.value.trim() === "") {
       event.target.setCustomValidity("Please fill out this field");
     } else if (
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(event.target.value)
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(event.target.value.trim())
     ) {
       event.target.setCustomValidity(
         "Password must contain at least 8 characters, including UPPER/lowercase and numbers"
@@ -30,6 +31,22 @@ export default function SignUp() {
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (password.trim() === "" || email.trim() === "") return;
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())) return;
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password.trim())) return;
+
+    registerUser({
+      username: `default--${new Date().getTime()}`,
+      email: email.trim(),
+      password: password.trim(),
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
+
+    setPassword("");
+    setEmail("");
   }
 
   return (
