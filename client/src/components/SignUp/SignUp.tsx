@@ -1,9 +1,33 @@
+import { useState } from "react";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
 
 import "./SignUp.css";
 
 export default function SignUp() {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value);
+
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(event.target.value)
+    ) {
+      event.target.setCustomValidity(
+        "Password must contain at least 8 characters, including UPPER/lowercase and numbers"
+      );
+    }
+  }
+
+  function changeEmail(event: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(event.target.value);
+  }
+
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  }
+
   return (
     <div className="sign-up">
       <h2 className="sign-up__title">
@@ -13,13 +37,24 @@ export default function SignUp() {
         Master web development by making real-life projects. There are multiple
         paths for you to choose
       </p>
-      <form className="sign-up__form">
+      <form className="sign-up__form" onSubmit={submitHandler}>
         <div className="sign-up__fields">
-          <FormField icon={<MailIcon />} type="email" placeholder="Email" />
+          <FormField
+            icon={<MailIcon />}
+            required={true}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={changeEmail}
+          />
           <FormField
             icon={<PasswordIcon />}
+            required={true}
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={changePassword}
+            pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/"
           />
         </div>
         <button className="sign-up__submit-button" type="submit">
