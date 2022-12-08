@@ -8,21 +8,25 @@ const apiRouter = Router();
 apiRouter.post("/register-user", async (req, res) => {
   const { username, email, password } = req.body;
 
-  if (typeof username !== "string" || !username)
+  if (typeof username !== "string" || !username.trim())
     return res.status(400).json({ status: 400, error: "username not valid" });
-  if (typeof email !== "string" || !email || !isValidEmail(email))
+  if (typeof email !== "string" || !email.trim() || !isValidEmail(email.trim()))
     return res.status(400).json({ status: 400, error: "email not valid" });
-  if (typeof password !== "string" || !password || !isValidPassword(password)) {
+  if (
+    typeof password !== "string" ||
+    !password.trim() ||
+    !isValidPassword(password.trim())
+  ) {
     return res.status(400).json({ status: 400, error: "password not valid" });
   }
 
   const saltRounds = 10;
-  const hashedPassword = await hash(password, saltRounds);
+  const hashedPassword = await hash(password.trim(), saltRounds);
 
   try {
     const result = await new User({
-      username,
-      email,
+      username: username.trim(),
+      email: email.trim(),
       password: hashedPassword,
     }).save();
     if (result?.toUpperCase() === "OK") return res.json({ status: 200 });
