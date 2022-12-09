@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useFetchAndLoad } from "../../hooks";
 import { registerUser } from "../../services";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
@@ -8,6 +9,8 @@ import "./SignUp.css";
 export default function SignUp() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  const { callEndpoint } = useFetchAndLoad();
 
   function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
@@ -36,12 +39,13 @@ export default function SignUp() {
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())) return;
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password.trim())) return;
 
-    registerUser({
-      username: `default--${new Date().getTime()}`,
-      email: email.trim(),
-      password: password.trim(),
-    })
-      .then(res => res.json())
+    callEndpoint(
+      registerUser({
+        username: `default--${new Date().getTime()}`,
+        email: email.trim(),
+        password: password.trim(),
+      })
+    )
       .then(data => console.log(data))
       .catch(err => console.error(err));
 
