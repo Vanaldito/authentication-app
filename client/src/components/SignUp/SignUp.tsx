@@ -3,6 +3,7 @@ import { useFetchAndLoad } from "../../hooks";
 import { registerUser } from "../../services";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
+import { Loader } from "../Loader";
 
 import "./SignUp.css";
 
@@ -10,7 +11,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const { callEndpoint } = useFetchAndLoad();
+  const { loading, callEndpoint } = useFetchAndLoad();
 
   function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
@@ -34,6 +35,8 @@ export default function SignUp() {
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (loading) return;
 
     if (password.trim() === "" || email.trim() === "") return;
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())) return;
@@ -83,7 +86,7 @@ export default function SignUp() {
           />
         </div>
         <button className="sign-up__submit-button" type="submit">
-          Start coding now
+          {loading ? <Loader /> : "Start coding now"}
         </button>
       </form>
       <div className="sign-up__use-social-profile">
