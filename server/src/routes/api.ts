@@ -2,6 +2,7 @@ import { Router } from "express";
 import { hash } from "bcrypt";
 import { isValidEmail, isValidPassword } from "../helpers";
 import { User } from "../models";
+import { DatabaseError } from "pg";
 
 const apiRouter = Router();
 
@@ -29,11 +30,17 @@ apiRouter.post("/register-user", async (req, res) => {
       email: email.trim(),
       password: hashedPassword,
     }).save();
-    if (result?.toUpperCase() === "OK") return res.json({ status: 200 });
+    if (result !== undefined) return res.json({ status: 200 });
+    console.log(result);
 
     throw new Error("Database result error");
   } catch (err) {
     console.log(err);
+    if (err instanceof DatabaseError && err.code === "23505") {
+      return res
+        .status(409)
+        .json({ status: 409, error: "email is already used" });
+    }
 
     res.status(500).json({ status: 500, error: "internal server error" });
   }

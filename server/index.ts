@@ -5,7 +5,10 @@ import { database } from "./src/models";
 import apiRouter from "./src/routes/api";
 
 async function main() {
-  await database.connect();
+  await database.connect(err => {
+    if (err) console.error(err);
+    else console.log("Connected to database");
+  });
 
   const app = express();
 

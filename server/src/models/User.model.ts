@@ -20,9 +20,9 @@ export default class User {
   save() {
     const { username, email, password } = this;
 
-    return database.set(
-      username,
-      JSON.stringify({ username, email, password })
+    return database.query(
+      "INSERT INTO Users(username, email, password) VALUES ($1, $2, $3) RETURNING *",
+      [username, email, password]
     );
   }
 }
