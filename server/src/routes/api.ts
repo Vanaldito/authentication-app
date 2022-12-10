@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { compare, hash } from "bcrypt";
+import jwt from "jsonwebtoken";
 import { isValidEmail, isValidPassword } from "../helpers";
 import { User, UserData } from "../models";
 import { DatabaseError } from "pg";
+import env from "../../environment";
 
 const apiRouter = Router();
 
@@ -82,7 +84,9 @@ apiRouter.post("/login", async (req, res) => {
       .json({ status: 401, error: "bad email or password" });
   }
 
-  return res.json({ status: 200 });
+  const token = jwt.sign(userInfo, env.JWT_SECRET ?? "");
+
+  return res.json({ status: 200, data: { token } });
 });
 
 export default apiRouter;
