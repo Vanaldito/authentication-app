@@ -1,13 +1,14 @@
-import { Navbar, SignUp } from "./components";
+import { Route, Routes } from "react-router-dom";
+import { HomePage, SignUpPage } from "./pages";
 
 import "./App.css";
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <SignUp />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
+    </Routes>
   );
 }
 
