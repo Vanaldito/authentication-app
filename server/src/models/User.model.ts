@@ -1,10 +1,5 @@
 import database from "./database.model";
-
-interface UserData {
-  username: string;
-  email: string;
-  password: string;
-}
+import { UserData } from "./UserData.model";
 
 export default class User {
   username: string;
@@ -24,5 +19,9 @@ export default class User {
       "INSERT INTO Users(username, email, password) VALUES ($1, $2, $3) RETURNING *",
       [username, email, password]
     );
+  }
+
+  static findByEmail(email: string) {
+    return database.query("SELECT * FROM Users WHERE email=$1", [email]);
   }
 }

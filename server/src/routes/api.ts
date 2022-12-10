@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
 import { isValidEmail, isValidPassword } from "../helpers";
-import { User } from "../models";
+import { User, UserData } from "../models";
 import { DatabaseError } from "pg";
 
 const apiRouter = Router();
@@ -44,6 +44,45 @@ apiRouter.post("/register-user", async (req, res) => {
 
     res.status(500).json({ status: 500, error: "internal server error" });
   }
+});
+
+apiRouter.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (typeof email !== "string" || !email.trim()) {
+    return res.status(400).json({ status: 400, error: "email not valid" });
+  }
+  if (typeof password !== "string" || !password.trim()) {
+    return res.status(400).json({ status: 400, error: "password not valid" });
+  }
+
+  let results;
+  try {
+    results = await User.findByEmail(email.trim());
+  } catch (err) {
+    console.log(err);
+
+    return res
+      .status(500)
+      .json({ status: 500, error: "internal server error" });
+  }
+
+  if (results.rows.length === 0)
+    return res
+      .status(404)
+      .json({ status: 404, error: "user with given email not found" });
+
+  const userInfo = results.rows[0] as UserData;
+
+  const isCorrectPassword = await compare(password, userInfo.password);
+
+  if (!isCorrectPassword) {
+    return res
+      .status(401)
+      .json({ status: 401, error: "bad email or password" });
+  }
+
+  return res.json({ status: 200 });
 });
 
 export default apiRouter;
