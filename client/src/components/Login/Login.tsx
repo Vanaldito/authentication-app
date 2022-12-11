@@ -4,6 +4,7 @@ import { login } from "../../services";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
 import { Loader } from "../Loader";
+import { SocialProfiles } from "../SocialProfiles";
 
 import "./Login.css";
 
@@ -81,25 +82,7 @@ export default function SignUp() {
         <p className="login__use-social-profile__description">
           or continue with these social profile
         </p>
-        <ul className="login__social-profiles">
-          <li>
-            <img src="/Google.svg" alt="google logo" width={43} height={43} />
-          </li>
-          <li>
-            <img
-              src="/Facebook.svg"
-              alt="facebook logo"
-              width={43}
-              height={43}
-            />
-          </li>
-          <li>
-            <img src="/Twitter.svg" alt="twitter logo" width={43} height={43} />
-          </li>
-          <li>
-            <img src="/Github.svg" alt="github logo" width={43} height={43} />
-          </li>
-        </ul>
+        <SocialProfiles />
       </div>
       <div className="login__not-account">
         Don&apos;t have an account yet?{" "}

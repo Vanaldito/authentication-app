@@ -50,14 +50,6 @@
   color: #6a6969;
 }
 
-.login__social-profiles {
-  list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 20px;
-}
-
 .login__not-account {
   text-align: center;
   color: #6a6969;

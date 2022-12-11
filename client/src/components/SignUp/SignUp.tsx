@@ -4,6 +4,7 @@ import { registerUser } from "../../services";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
 import { Loader } from "../Loader";
+import { SocialProfiles } from "../SocialProfiles";
 
 import "./SignUp.css";
 
@@ -93,25 +94,7 @@ export default function SignUp() {
         <p className="sign-up__use-social-profile__description">
           or continue with a social profile
         </p>
-        <ul className="sign-up__social-profiles">
-          <li>
-            <img src="/Google.svg" alt="google logo" width={43} height={43} />
-          </li>
-          <li>
-            <img
-              src="/Facebook.svg"
-              alt="facebook logo"
-              width={43}
-              height={43}
-            />
-          </li>
-          <li>
-            <img src="/Twitter.svg" alt="twitter logo" width={43} height={43} />
-          </li>
-          <li>
-            <img src="/Github.svg" alt="github logo" width={43} height={43} />
-          </li>
-        </ul>
+        <SocialProfiles />
       </div>
       <div className="sign-up__already-a-member">
         Already a member?{" "}
