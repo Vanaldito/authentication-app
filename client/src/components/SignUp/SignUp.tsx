@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useFetchAndLoad } from "../../hooks";
 import { registerUser } from "../../services";
 import { FormField } from "../FormField";
@@ -98,9 +99,9 @@ export default function SignUp() {
       </div>
       <div className="sign-up__already-a-member">
         Already a member?{" "}
-        <a className="sign-up__login-link" href="/">
+        <Link className="sign-up__login-link" to="/login">
           Login
-        </a>
+        </Link>
       </div>
     </div>
   );
