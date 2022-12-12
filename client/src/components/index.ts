@@ -7,3 +7,4 @@ export * from "./Login";
 export * from "./SocialProfiles";
 export * from "./Modal";
 export * from "./ProtectedRoute";
+export * from "./AuthProvider";
