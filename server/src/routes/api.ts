@@ -33,7 +33,17 @@ apiRouter.post("/register-user", async (req, res) => {
       bio: "",
       phone: "",
     }).save();
-    if (result !== undefined) return res.json({ status: 200 });
+    if (result !== undefined) {
+      const token = jwt.sign({ email }, env.JWT_SECRET as string);
+
+      return res
+        .cookie("auth-token", `Bearer ${token}`, {
+          expires: new Date(Date.now() + 8 * 3600000),
+          secure: true,
+          sameSite: true,
+        })
+        .json({ status: 200 });
+    }
 
     throw new Error("Database result error");
   } catch (err) {
