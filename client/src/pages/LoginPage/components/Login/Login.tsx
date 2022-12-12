@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth, useFetchAndLoad } from "../../hooks";
-import { login } from "../../services";
-import { FormField } from "../FormField";
-import { MailIcon, PasswordIcon } from "../Icons";
-import { Loader } from "../Loader";
-import { Modal } from "../Modal";
-import { SocialProfiles } from "../SocialProfiles";
+import {
+  FormField,
+  MailIcon,
+  PasswordIcon,
+  Loader,
+  Modal,
+  SocialProfiles,
+} from "../../../../components";
+import { useAuth, useFetchAndLoad } from "../../../../hooks";
+import { login } from "../../../../services";
 
 import "./Login.css";
 

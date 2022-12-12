@@ -1,4 +1,5 @@
-import { Navbar, SignUp } from "../../components";
+import { Navbar } from "../../components";
+import { SignUp } from "./components";
 
 import "./SignUpPage.css";
 

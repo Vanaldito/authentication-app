@@ -1,4 +1,5 @@
-import { Login, Navbar } from "../../components";
+import { Login } from "./components";
+import { Navbar } from "../../components";
 
 import "./LoginPage.css";
 
