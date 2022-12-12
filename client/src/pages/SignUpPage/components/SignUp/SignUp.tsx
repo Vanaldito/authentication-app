@@ -50,13 +50,7 @@ export default function SignUp() {
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())) return;
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password.trim())) return;
 
-    callEndpoint(
-      registerUser({
-        username: `default--${new Date().getTime()}`,
-        email: email.trim(),
-        password: password.trim(),
-      })
-    )
+    callEndpoint(registerUser(email.trim(), password.trim()))
       .then(res => {
         if (res.error) {
           setError(res.error);
