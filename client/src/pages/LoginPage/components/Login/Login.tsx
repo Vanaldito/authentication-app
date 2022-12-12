@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FormField,
   MailIcon,
@@ -22,6 +22,7 @@ export default function SignUp() {
   const { loading, callEndpoint } = useFetchAndLoad();
 
   const { setIsLogged } = useAuth();
+  const navigate = useNavigate();
 
   function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
@@ -58,6 +59,7 @@ export default function SignUp() {
           setError(res.error);
         } else {
           setIsLogged(true);
+          navigate("/");
         }
       })
       .catch(err => console.error(err));
