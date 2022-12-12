@@ -33,7 +33,6 @@ apiRouter.post("/register-user", async (req, res) => {
       password: hashedPassword,
     }).save();
     if (result !== undefined) return res.json({ status: 200 });
-    console.log(result);
 
     throw new Error("Database result error");
   } catch (err) {
@@ -84,7 +83,7 @@ apiRouter.post("/login", async (req, res) => {
       .json({ status: 401, error: "bad email or password" });
   }
 
-  const token = jwt.sign(userInfo, env.JWT_SECRET ?? "");
+  const token = jwt.sign(userInfo, env.JWT_SECRET as string);
 
   res
     .cookie("auth-token", `Bearer ${token}`, {
