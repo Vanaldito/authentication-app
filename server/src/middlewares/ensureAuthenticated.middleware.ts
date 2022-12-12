@@ -9,12 +9,11 @@ export default function ensureAuthenticated(
 ) {
   try {
     jwt.verify(
-      req.cookies["auth-token"].split(" ")[1],
+      req.cookies["auth-token"]?.split(" ")[1],
       env.JWT_SECRET as string
     );
     next();
   } catch {
     res.redirect("/login");
-    res.status(401).json({ status: 401, error: "Auth token wrong or invalid" });
   }
 }
