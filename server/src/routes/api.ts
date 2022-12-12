@@ -108,4 +108,36 @@ apiRouter.get("/is-logged", (req, res) => {
   }
 });
 
+apiRouter.get("/user-info", async (req, res) => {
+  let tokenInfo;
+  try {
+    tokenInfo = jwt.verify(
+      req.cookies["auth-token"].split(" ")[1],
+      env.JWT_SECRET as string
+    ) as { email: string };
+  } catch {
+    return res
+      .status(401)
+      .json({ status: 401, error: "auth token wrong or invalid" });
+  }
+
+  let results;
+  try {
+    results = await User.findByEmail(tokenInfo.email.trim());
+  } catch (err) {
+    console.log(err);
+
+    return res
+      .status(500)
+      .json({ status: 500, error: "internal server error" });
+  }
+
+  if (results.rows.length === 0)
+    return res.status(404).json({ status: 404, error: "user not found" });
+
+  const userInfo = results.rows[0] as UserData;
+
+  res.status(200).json({ status: 200, data: userInfo });
+});
+
 export default apiRouter;
