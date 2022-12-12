@@ -84,7 +84,7 @@ apiRouter.post("/login", async (req, res) => {
       .json({ status: 401, error: "bad email or password" });
   }
 
-  const token = jwt.sign(userInfo, env.JWT_SECRET as string);
+  const token = jwt.sign({ email: userInfo.email }, env.JWT_SECRET as string);
 
   res
     .cookie("auth-token", `Bearer ${token}`, {
