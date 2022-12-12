@@ -8,7 +8,7 @@ interface AuthProviderProps {
 }
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [isLogged, setIsLogged] = useState<undefined | boolean>(undefined);
   const { callEndpoint } = useFetchAndLoad();
 
   useEffect(() => {
