@@ -1,5 +1,7 @@
 import express from "express";
 import path from "path";
+import cookieParser from "cookie-parser";
+import { ensureAuthenticated } from "./src/middlewares";
 import { database } from "./src/models";
 
 import apiRouter from "./src/routes/api";
@@ -17,10 +19,11 @@ async function main() {
   }
 
   app.use(express.json());
+  app.use(cookieParser());
 
   app.use("/api/v1", apiRouter);
 
-  app.get("/", (_req, res) => {
+  app.get("/", ensureAuthenticated, (_req, res) => {
     res.sendFile(path.join(__dirname, process.env.VEREX_HTML_PATH as string));
   });
 

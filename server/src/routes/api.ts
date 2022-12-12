@@ -86,7 +86,13 @@ apiRouter.post("/login", async (req, res) => {
 
   const token = jwt.sign(userInfo, env.JWT_SECRET ?? "");
 
-  return res.json({ status: 200, data: { token } });
+  res
+    .cookie("auth-token", `Bearer ${token}`, {
+      expires: new Date(Date.now() + 8 * 3600000),
+      secure: true,
+      sameSite: true,
+    })
+    .json({ status: 200 });
 });
 
 export default apiRouter;
