@@ -9,10 +9,8 @@ import env from "../../environment";
 const apiRouter = Router();
 
 apiRouter.post("/register-user", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
 
-  if (typeof username !== "string" || !username.trim())
-    return res.status(400).json({ status: 400, error: "username not valid" });
   if (typeof email !== "string" || !email.trim() || !isValidEmail(email.trim()))
     return res.status(400).json({ status: 400, error: "email not valid" });
   if (
@@ -28,9 +26,12 @@ apiRouter.post("/register-user", async (req, res) => {
 
   try {
     const result = await new User({
-      username: username.trim(),
+      name: `default--${new Date().getTime()}`,
       email: email.trim(),
       password: hashedPassword,
+      photoUrl: "https://secure.gravatar.com/avatar",
+      bio: "",
+      phone: "",
     }).save();
     if (result !== undefined) return res.json({ status: 200 });
 

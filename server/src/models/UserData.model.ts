@@ -1,5 +1,8 @@
 export interface UserData {
-  username: string;
+  name: string;
+  photoUrl: string;
+  bio: string;
+  phone: string;
   email: string;
   password: string;
 }
