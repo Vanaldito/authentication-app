@@ -5,6 +5,7 @@ import { login } from "../../services";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
 import { Loader } from "../Loader";
+import { Modal } from "../Modal";
 import { SocialProfiles } from "../SocialProfiles";
 
 import "./Login.css";
@@ -12,6 +13,8 @@ import "./Login.css";
 export default function SignUp() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  const [error, setError] = useState("");
 
   const { loading, callEndpoint } = useFetchAndLoad();
 
@@ -45,7 +48,11 @@ export default function SignUp() {
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password.trim())) return;
 
     callEndpoint(login(email.trim(), password.trim()))
-      .then(data => console.log(data))
+      .then(res => {
+        if (res.error) {
+          setError(res.error);
+        }
+      })
       .catch(err => console.error(err));
 
     setPassword("");
@@ -91,6 +98,7 @@ export default function SignUp() {
           Register
         </Link>
       </div>
+      {error && <Modal closeModal={() => setError("")}>{error}</Modal>}
     </div>
   );
 }

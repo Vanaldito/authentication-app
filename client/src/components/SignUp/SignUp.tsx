@@ -5,6 +5,7 @@ import { registerUser } from "../../services";
 import { FormField } from "../FormField";
 import { MailIcon, PasswordIcon } from "../Icons";
 import { Loader } from "../Loader";
+import { Modal } from "../Modal";
 import { SocialProfiles } from "../SocialProfiles";
 
 import "./SignUp.css";
@@ -14,6 +15,8 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
 
   const { loading, callEndpoint } = useFetchAndLoad();
+
+  const [error, setError] = useState("");
 
   function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
@@ -51,7 +54,11 @@ export default function SignUp() {
         password: password.trim(),
       })
     )
-      .then(data => console.log(data))
+      .then(res => {
+        if (res.error) {
+          setError(res.error);
+        }
+      })
       .catch(err => console.error(err));
 
     setPassword("");
@@ -103,6 +110,7 @@ export default function SignUp() {
           Login
         </Link>
       </div>
+      {error && <Modal closeModal={() => setError("")}>{error}</Modal>}
     </div>
   );
 }
