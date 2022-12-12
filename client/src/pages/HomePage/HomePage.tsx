@@ -32,6 +32,7 @@ export default function HomePage() {
                 <img
                   className="user-info__profile-image"
                   src="https://gravatar.com/avatar/"
+                  alt="Profile Image"
                 />
               </span>
             </div>
