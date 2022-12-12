@@ -135,9 +135,19 @@ apiRouter.get("/user-info", async (req, res) => {
   if (results.rows.length === 0)
     return res.status(404).json({ status: 404, error: "user not found" });
 
-  const userInfo = results.rows[0] as UserData;
+  const userInfo = results.rows[0] as UserData & { userid: number };
 
-  res.status(200).json({ status: 200, data: userInfo });
+  res.status(200).json({
+    status: 200,
+    data: {
+      userid: userInfo.userid,
+      name: userInfo.name,
+      email: userInfo.email,
+      bio: userInfo.bio,
+      phone: userInfo.phone,
+      photourl: userInfo.photoUrl,
+    },
+  });
 });
 
 export default apiRouter;
