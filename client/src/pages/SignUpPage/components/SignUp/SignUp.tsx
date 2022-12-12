@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useFetchAndLoad } from "../../../../hooks";
+import { useAuth, useFetchAndLoad } from "../../../../hooks";
 import { registerUser } from "../../../../services";
 import {
   FormField,
@@ -20,6 +20,8 @@ export default function SignUp() {
   const { loading, callEndpoint } = useFetchAndLoad();
 
   const [error, setError] = useState("");
+
+  const { setIsLogged } = useAuth();
 
   function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
@@ -54,6 +56,8 @@ export default function SignUp() {
       .then(res => {
         if (res.error) {
           setError(res.error);
+        } else {
+          setIsLogged(true);
         }
       })
       .catch(err => console.error(err));
