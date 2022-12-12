@@ -1,0 +1,131 @@
+.home-page {
+  padding: 14px 28px;
+}
+
+.home-page__header {
+  text-align: center;
+  margin: 27px 0;
+}
+
+.home-page__title {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.home-page__description {
+  margin-top: 7px;
+  font-size: 14px;
+  color: #707070;
+}
+
+.user-info {
+  margin-top: 40px;
+}
+
+.user-info__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.user-info__title {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.user-info__warning {
+  color: #707070;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.user-info__edit-button {
+  cursor: pointer;
+  display: block;
+  height: max-content;
+  padding: 8px 32px;
+  color: #707070;
+  border: 1px solid #707070;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.user-info__edit-button:hover {
+  background-color: #707070;
+  color: white;
+}
+
+.user-info__table {
+  margin-top: 20px;
+}
+
+.user-info__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  gap: 50px;
+}
+
+.user-info__row ~ .user-info__row {
+  border-top: 1px solid #e0e0e0;
+}
+
+.user-info__key {
+  color: #707070;
+}
+
+.user-info__value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-info__profile-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+@media (min-width: 500px) {
+  .home-page__title {
+    font-size: 36px;
+  }
+
+  .home-page__description {
+    font-size: 18px;
+  }
+
+  .user-info {
+    max-width: 800px;
+    margin: 44px auto 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+  }
+
+  .user-info__header {
+    padding: 28px 40px;
+  }
+
+  .user-info__table {
+    margin: 0;
+  }
+
+  .user-info__row {
+    justify-content: flex-start;
+    gap: 0;
+    padding: 18px 40px;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .user-info__row ~ .user-info__row {
+    border-top: 0;
+  }
+
+  .user-info__key {
+    min-width: 200px;
+  }
+}
