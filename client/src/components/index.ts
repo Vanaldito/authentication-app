@@ -6,3 +6,4 @@ export * from "./Loader";
 export * from "./Login";
 export * from "./SocialProfiles";
 export * from "./Modal";
+export * from "./ProtectedRoute";

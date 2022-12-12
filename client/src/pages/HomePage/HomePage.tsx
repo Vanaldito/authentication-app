@@ -1,3 +1,5 @@
+import { ProtectedRoute } from "../../components";
+
 export default function HomePage() {
-  return <div>Home Page</div>;
+  return <ProtectedRoute>Home Page</ProtectedRoute>;
 }
