@@ -94,4 +94,17 @@ apiRouter.post("/login", async (req, res) => {
     .json({ status: 200 });
 });
 
+apiRouter.get("/is-logged", (req, res) => {
+  try {
+    jwt.verify(
+      req.cookies["auth-token"].split(" ")[1],
+      env.JWT_SECRET as string
+    );
+
+    res.json({ status: 200, data: { isLogged: true } });
+  } catch {
+    res.json({ status: 200, data: { isLogged: false } });
+  }
+});
+
 export default apiRouter;
