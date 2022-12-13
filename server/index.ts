@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import { ensureAuthenticated } from "./src/middlewares";
 import { database } from "./src/models";
 
-import apiRouter from "./src/routes/api";
+import { apiRouter, oauthRouter } from "./src/routes/";
 
 async function main() {
   await database.connect(err => {
@@ -22,6 +22,7 @@ async function main() {
   app.use(cookieParser());
 
   app.use("/api/v1", apiRouter);
+  app.use("/oauth", oauthRouter);
 
   app.get("/", ensureAuthenticated, (_req, res) => {
     res.sendFile(path.join(__dirname, process.env.VEREX_HTML_PATH as string));
