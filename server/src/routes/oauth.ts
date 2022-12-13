@@ -58,13 +58,13 @@ oauthRouter.get("/code/github", async (req, res) => {
     if (user !== undefined) {
       const token = jwt.sign({ email: userEmail }, env.JWT_SECRET as string);
 
-      return res
-        .cookie("auth-token", `Bearer ${token}`, {
-          expires: new Date(Date.now() + 8 * 3600000),
-          secure: true,
-          sameSite: true,
-        })
-        .redirect("/");
+      res.cookie("auth-token", `Bearer ${token}`, {
+        expires: new Date(Date.now() + 8 * 3600000),
+        secure: true,
+        sameSite: false,
+      });
+
+      return res.redirect("/");
     }
 
     throw new Error("Database result error");
@@ -72,13 +72,13 @@ oauthRouter.get("/code/github", async (req, res) => {
     if (err instanceof DatabaseError && err.code === "23505") {
       const token = jwt.sign({ email: userEmail }, env.JWT_SECRET as string);
 
-      return res
-        .cookie("auth-token", `Bearer ${token}`, {
-          expires: new Date(Date.now() + 8 * 3600000),
-          secure: true,
-          sameSite: true,
-        })
-        .redirect("/");
+      res.cookie("auth-token", `Bearer ${token}`, {
+        expires: new Date(Date.now() + 8 * 3600000),
+        secure: true,
+        sameSite: false,
+      });
+
+      return res.redirect("/");
     }
 
     console.log(err);
