@@ -167,4 +167,59 @@ apiRouter.get("/user-info", async (req, res) => {
   });
 });
 
+apiRouter.post("/update-user", async (req, res) => {
+  const { name, bio, photoUrl, phone } = req.body;
+
+  if (typeof name !== "string" && name !== undefined) {
+    return res
+      .status(400)
+      .json({ status: 400, error: "name value is not allowed" });
+  }
+
+  if (typeof bio !== "string" && bio !== undefined) {
+    return res
+      .status(400)
+      .json({ status: 400, error: "bio value is not allowed" });
+  }
+
+  if (typeof photoUrl !== "string" && photoUrl !== undefined) {
+    return res
+      .status(400)
+      .json({ status: 400, error: "photo url value is not allowed" });
+  }
+
+  if (typeof phone !== "string" && phone !== undefined) {
+    return res
+      .status(400)
+      .json({ status: 400, error: "phone value is not allowed" });
+  }
+
+  let tokenInfo;
+  try {
+    tokenInfo = jwt.verify(
+      req.cookies["auth-token"].split(" ")[1],
+      env.JWT_SECRET as string
+    ) as { email: string };
+  } catch {
+    return res
+      .status(401)
+      .json({ status: 401, error: "auth token wrong or invalid" });
+  }
+
+  try {
+    await User.update(tokenInfo.email, {
+      name,
+      bio,
+      photoUrl,
+      phone,
+    });
+
+    return res.status(200).json({ status: 200 });
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({ status: 500, error: "internal server error" });
+  }
+});
+
 export default apiRouter;

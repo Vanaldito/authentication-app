@@ -27,6 +27,37 @@ export default class User implements UserData {
     );
   }
 
+  static update(
+    email: string,
+    newValues: {
+      name?: string;
+      photoUrl?: string;
+      bio?: string;
+      phone?: string;
+    }
+  ) {
+    const validValues: string[] = [];
+    let query = "UPDATE Users SET";
+    let i = 1;
+
+    for (const [key, value] of Object.entries(newValues)) {
+      if (value === undefined) continue;
+
+      validValues.push(value);
+      query += ` ${key}=$${i},`;
+      i++;
+    }
+
+    if (!validValues.length) return undefined;
+
+    // Remove last comma
+    query = query.substring(0, query.length - 1);
+
+    query += ` WHERE email=$${i}`;
+
+    return database.query(query, validValues.concat(email));
+  }
+
   static findByEmail(email: string) {
     return database.query("SELECT * FROM Users WHERE email=$1", [email]);
   }
