@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Loader, Modal, Navbar, ProtectedRoute } from "../../components";
 import { useFetchAndLoad } from "../../hooks";
 import { UserInfo } from "../../models";
@@ -45,9 +46,9 @@ export default function HomePage() {
                   Some info may be visible to other people
                 </p>
               </div>
-              <button className="user-info__edit-button" type="button">
+              <Link to="/edit" className="user-info__edit-link">
                 Edit
-              </button>
+              </Link>
             </header>
             <div className="user-info__table">
               <div className="user-info__row">
