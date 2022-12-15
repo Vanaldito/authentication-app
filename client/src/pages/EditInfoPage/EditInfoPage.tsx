@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FormField, Loader, Modal, Navbar } from "../../components";
+import {
+  FormField,
+  Loader,
+  Modal,
+  Navbar,
+  ProtectedRoute,
+} from "../../components";
 import { useFetchAndLoad, useUserInfo } from "../../hooks";
 import { updateUserInfo } from "../../services";
 
@@ -40,63 +46,71 @@ export default function EditInfoPage() {
     });
   }
 
-  return !userInfo ? (
-    <Loader />
-  ) : (
-    <div className="edit-info-page">
-      <Navbar />
-      <div className="edit-user-info">
-        <header className="edit-user-info__header">
-          <div>
-            <h2 className="edit-user-info__title">Change Info</h2>
-            <p className="edit-user-info__warning">
-              Changes will be reflected to every services
-            </p>
+  return (
+    <ProtectedRoute>
+      {!userInfo ? (
+        <Loader />
+      ) : (
+        <div className="edit-info-page">
+          <Navbar />
+          <div className="edit-user-info">
+            <header className="edit-user-info__header">
+              <div>
+                <h2 className="edit-user-info__title">Change Info</h2>
+                <p className="edit-user-info__warning">
+                  Changes will be reflected to every services
+                </p>
+              </div>
+            </header>
+            <form className="edit-user-info__table" onSubmit={submitHandler}>
+              <div className="edit-user-info__row">
+                <img
+                  className="edit-user-info__profile-image"
+                  src={userInfo.photourl}
+                  alt="Profile Image"
+                />
+              </div>
+              <div className="edit-user-info__row">
+                <FormField
+                  value={name}
+                  onChange={changeHandler(setName)}
+                  placeholder="Enter your name..."
+                  label="Name"
+                />
+              </div>
+              <div className="edit-user-info__row">
+                <FormField
+                  value={bio}
+                  onChange={changeHandler(setBio)}
+                  placeholder="Enter your bio..."
+                  label="Bio"
+                />
+              </div>
+              <div className="edit-user-info__row">
+                <FormField
+                  value={phone}
+                  onChange={changeHandler(setPhone)}
+                  placeholder="Enter your phone..."
+                  label="Phone"
+                />
+              </div>
+              <div className="edit-user-info__row">
+                <FormField
+                  value={userInfo.email}
+                  readOnly={true}
+                  label="Email"
+                />
+              </div>
+              <div className="edit-user-info__row">
+                <button type="submit" className="edit-user-info__submit-button">
+                  {savingInfo ? <Loader /> : "Save"}
+                </button>
+              </div>
+            </form>
           </div>
-        </header>
-        <form className="edit-user-info__table" onSubmit={submitHandler}>
-          <div className="edit-user-info__row">
-            <img
-              className="edit-user-info__profile-image"
-              src={userInfo.photourl}
-              alt="Profile Image"
-            />
-          </div>
-          <div className="edit-user-info__row">
-            <FormField
-              value={name}
-              onChange={changeHandler(setName)}
-              placeholder="Enter your name..."
-              label="Name"
-            />
-          </div>
-          <div className="edit-user-info__row">
-            <FormField
-              value={bio}
-              onChange={changeHandler(setBio)}
-              placeholder="Enter your bio..."
-              label="Bio"
-            />
-          </div>
-          <div className="edit-user-info__row">
-            <FormField
-              value={phone}
-              onChange={changeHandler(setPhone)}
-              placeholder="Enter your phone..."
-              label="Phone"
-            />
-          </div>
-          <div className="edit-user-info__row">
-            <FormField value={userInfo.email} readOnly={true} label="Email" />
-          </div>
-          <div className="edit-user-info__row">
-            <button type="submit" className="edit-user-info__submit-button">
-              {savingInfo ? <Loader /> : "Save"}
-            </button>
-          </div>
-        </form>
-      </div>
-      {error && <Modal closeModal={() => setError("")}>{error}</Modal>}
-    </div>
+          {error && <Modal closeModal={() => setError("")}>{error}</Modal>}
+        </div>
+      )}
+    </ProtectedRoute>
   );
 }
