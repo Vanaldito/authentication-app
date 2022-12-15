@@ -29,3 +29,18 @@
   border: 1px solid transparent;
   outline: 2px solid #2f80ed;
 }
+
+.form-field--read-only {
+  background-color: #efefef;
+  cursor: not-allowed;
+}
+
+.form-field--read-only:focus-visible {
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.form-field-label {
+  display: inline-block;
+  margin-bottom: 10px;
+}

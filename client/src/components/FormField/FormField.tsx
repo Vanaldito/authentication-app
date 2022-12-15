@@ -13,18 +13,20 @@ export default function FormField({
   icon,
   className,
   label,
+  readOnly,
   ...rest
 }: FormFieldProps) {
   className = `form-field ${className ?? ""}`;
   className += ` ${icon ? "form-field--icon" : ""}`;
+  className += ` ${readOnly ? "form-field--read-only" : ""}`;
 
   className = className.trim();
 
   return (
     <label className="form-field-container">
-      <span className="form-field-label">{label}</span>
+      {label && <span className="form-field-label">{label}</span>}
       <span className="form-field-icon">{icon}</span>
-      <input className={className} {...rest} />
+      <input className={className} readOnly={readOnly} {...rest} />
     </label>
   );
 }
