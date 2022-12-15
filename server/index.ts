@@ -28,7 +28,7 @@ async function main() {
     res.sendFile(path.join(__dirname, process.env.VEREX_HTML_PATH as string));
   });
 
-  app.get("/edit", (_req, res) => {
+  app.get("/edit", ensureAuthenticated, (_req, res) => {
     res.sendFile(path.join(__dirname, process.env.VEREX_HTML_PATH as string));
   });
 
