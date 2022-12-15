@@ -13,7 +13,13 @@ import { updateUserInfo } from "../../services";
 import "./EditInfoPage.css";
 
 export default function EditInfoPage() {
-  const { userInfo, reloadUserInfo } = useUserInfo();
+  const {
+    userInfo,
+    reloadUserInfo,
+    loading: loadingUserInfo,
+    error: userInfoError,
+    clearError: clearUserInfoError,
+  } = useUserInfo();
 
   const [name, setName] = useState(userInfo?.name ?? "");
   const [bio, setBio] = useState(userInfo?.bio ?? "");
@@ -48,7 +54,7 @@ export default function EditInfoPage() {
 
   return (
     <ProtectedRoute>
-      {!userInfo ? (
+      {loadingUserInfo ? (
         <Loader />
       ) : (
         <div className="edit-info-page">
@@ -66,7 +72,7 @@ export default function EditInfoPage() {
               <div className="edit-user-info__row">
                 <img
                   className="edit-user-info__profile-image"
-                  src={userInfo.photourl}
+                  src={userInfo?.photourl ?? ""}
                   alt="Profile Image"
                 />
               </div>
@@ -96,7 +102,7 @@ export default function EditInfoPage() {
               </div>
               <div className="edit-user-info__row">
                 <FormField
-                  value={userInfo.email}
+                  value={userInfo?.email ?? ""}
                   readOnly={true}
                   label="Email"
                 />
@@ -108,6 +114,9 @@ export default function EditInfoPage() {
               </div>
             </form>
           </div>
+          {userInfoError && (
+            <Modal closeModal={clearUserInfoError}>{userInfoError}</Modal>
+          )}
           {error && <Modal closeModal={() => setError("")}>{error}</Modal>}
         </div>
       )}

@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { Loader, Navbar, ProtectedRoute } from "../../components";
+import { Loader, Modal, Navbar, ProtectedRoute } from "../../components";
 import { useUserInfo } from "../../hooks";
 
 import "./HomePage.css";
 
 export default function HomePage() {
-  const { userInfo } = useUserInfo();
+  const { userInfo, loading, error, clearError } = useUserInfo();
 
   return (
     <ProtectedRoute>
-      {!userInfo ? (
+      {loading ? (
         <Loader />
       ) : (
         <div className="home-page">
@@ -61,6 +61,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          {error && <Modal closeModal={clearError}>{error}</Modal>}
         </div>
       )}
     </ProtectedRoute>
