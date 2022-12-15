@@ -1,5 +1,6 @@
-.form-field-label {
+.form-field-container {
   position: relative;
+  width: 100%;
 }
 
 .form-field-icon {
@@ -12,12 +13,16 @@
 }
 
 .form-field {
-  padding: 13px 15px 13px 45px;
+  padding: 13px 15px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
   width: 100%;
+}
+
+.form-field--icon {
+  padding-left: 45px;
 }
 
 .form-field:focus-visible {
