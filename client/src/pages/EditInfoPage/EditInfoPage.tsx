@@ -1,41 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormField, Loader, Modal, Navbar } from "../../components";
-import { useFetchAndLoad } from "../../hooks";
-import { getUserInfo, updateUserInfo } from "../../services";
+import { useFetchAndLoad, useUserInfo } from "../../hooks";
+import { updateUserInfo } from "../../services";
 
 import "./EditInfoPage.css";
 
 export default function EditInfoPage() {
-  const [photoUrl, setPhotoUrl] = useState("");
-  const [name, setName] = useState("");
-  const [bio, setBio] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const { userInfo, reloadUserInfo } = useUserInfo();
+
+  const [name, setName] = useState(userInfo?.name ?? "");
+  const [bio, setBio] = useState(userInfo?.bio ?? "");
+  const [phone, setPhone] = useState(userInfo?.phone ?? "");
 
   const [error, setError] = useState("");
 
-  const { loading: loadingInfo, callEndpoint: callGetInfoEndpoint } =
-    useFetchAndLoad();
   const { loading: savingInfo, callEndpoint: callUpdateInfoEndpoint } =
     useFetchAndLoad();
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    callGetInfoEndpoint(getUserInfo()).then(res => {
-      if (res.data) {
-        setPhotoUrl(res.data.photourl);
-        setName(res.data.name);
-        setBio(res.data.bio);
-        setPhone(res.data.phone);
-        setEmail(res.data.email);
-      }
-      if (res.error) {
-        setError(res.error);
-      }
-    });
-  }, []);
 
   function changeHandler(setValue: (value: string) => void) {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,15 +31,16 @@ export default function EditInfoPage() {
 
     if (savingInfo) return;
 
-    callUpdateInfoEndpoint(updateUserInfo({ name, bio, phone, photoUrl })).then(
-      res => {
-        if (res.error) return setError(res.error);
-        else navigate("/");
+    callUpdateInfoEndpoint(updateUserInfo({ name, bio, phone })).then(res => {
+      if (res.error) return setError(res.error);
+      else {
+        reloadUserInfo();
+        navigate("/");
       }
-    );
+    });
   }
 
-  return loadingInfo ? (
+  return !userInfo ? (
     <Loader />
   ) : (
     <div className="edit-info-page">
@@ -74,7 +58,7 @@ export default function EditInfoPage() {
           <div className="edit-user-info__row">
             <img
               className="edit-user-info__profile-image"
-              src={photoUrl}
+              src={userInfo.photourl}
               alt="Profile Image"
             />
           </div>
@@ -103,7 +87,7 @@ export default function EditInfoPage() {
             />
           </div>
           <div className="edit-user-info__row">
-            <FormField value={email} readOnly={true} label="Email" />
+            <FormField value={userInfo.email} readOnly={true} label="Email" />
           </div>
           <div className="edit-user-info__row">
             <button type="submit" className="edit-user-info__submit-button">

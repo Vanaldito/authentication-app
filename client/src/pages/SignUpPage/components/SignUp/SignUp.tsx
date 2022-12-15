@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useFetchAndLoad } from "../../../../hooks";
+import { useAuth, useFetchAndLoad, useUserInfo } from "../../../../hooks";
 import { registerUser } from "../../../../services";
 import {
   FormField,
@@ -22,6 +22,8 @@ export default function SignUp() {
   const [error, setError] = useState("");
 
   const { setIsLogged } = useAuth();
+  const { reloadUserInfo } = useUserInfo();
+
   const navigate = useNavigate();
 
   function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
@@ -59,6 +61,7 @@ export default function SignUp() {
           setError(res.error);
         } else {
           setIsLogged(true);
+          reloadUserInfo();
           navigate("/");
         }
       })

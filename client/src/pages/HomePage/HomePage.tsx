@@ -1,33 +1,15 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Loader, Modal, Navbar, ProtectedRoute } from "../../components";
-import { useFetchAndLoad } from "../../hooks";
-import { UserInfo } from "../../models";
-import { getUserInfo } from "../../services";
+import { Loader, Navbar, ProtectedRoute } from "../../components";
+import { useUserInfo } from "../../hooks";
 
 import "./HomePage.css";
 
 export default function HomePage() {
-  const [userInfo, setUserInfo] = useState<undefined | UserInfo>(undefined);
-
-  const [error, setError] = useState("");
-
-  const { loading, callEndpoint } = useFetchAndLoad();
-
-  useEffect(() => {
-    callEndpoint(getUserInfo()).then(res => {
-      if (res.data) {
-        setUserInfo(res.data);
-      }
-      if (res.error) {
-        setError(res.error);
-      }
-    });
-  }, []);
+  const { userInfo } = useUserInfo();
 
   return (
     <ProtectedRoute>
-      {loading ? (
+      {!userInfo ? (
         <Loader />
       ) : (
         <div className="home-page">
@@ -79,7 +61,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          {error && <Modal closeModal={() => setError("")}>{error}</Modal>}
         </div>
       )}
     </ProtectedRoute>
