@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserInfo } from "../../hooks";
 import { ArrowIcon } from "../Icons";
@@ -15,8 +15,27 @@ export default function Navbar({ displayUserInfo }: NavbarProps) {
 
   const { userInfo, loading } = useUserInfo();
 
-  function toggleDisplayDropdownMenu() {
-    setDisplayDropdownMenu(!displayDropdownMenu);
+  const dropdownMenu = useRef<HTMLDivElement>(null);
+
+  function openMenu() {
+    setDisplayDropdownMenu(true);
+
+    window.addEventListener("click", closeMenu, true);
+
+    function closeMenu(event: MouseEvent) {
+      if (
+        event.target instanceof Node &&
+        dropdownMenu.current?.contains(event.target)
+      ) {
+        return;
+      }
+
+      event.stopPropagation();
+
+      setDisplayDropdownMenu(false);
+
+      window.removeEventListener("click", closeMenu, true);
+    }
   }
 
   return (
@@ -27,10 +46,7 @@ export default function Navbar({ displayUserInfo }: NavbarProps) {
       {displayUserInfo && loading ? <Loader /> : null}
       {displayUserInfo && !loading && userInfo ? (
         <div className="navbar__dropdown-menu-container">
-          <div
-            className="navbar__user-info"
-            onClick={toggleDisplayDropdownMenu}
-          >
+          <div className="navbar__user-info" onClick={openMenu}>
             <img
               className="navbar__profile-image"
               src={userInfo.photourl}
@@ -41,6 +57,7 @@ export default function Navbar({ displayUserInfo }: NavbarProps) {
             <ArrowIcon />
           </div>
           <div
+            ref={dropdownMenu}
             className={`navbar__dropdown-menu ${
               displayDropdownMenu ? "navbar__dropdown-menu--displayed" : ""
             }`.trim()}
