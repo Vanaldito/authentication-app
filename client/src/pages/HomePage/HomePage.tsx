@@ -40,6 +40,7 @@ export default function HomePage() {
                     className="user-info__profile-image"
                     src={userInfo?.photourl}
                     alt="Profile Image"
+                    referrerPolicy="no-referrer"
                   />
                 </span>
               </div>

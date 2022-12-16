@@ -73,6 +73,7 @@ export default function EditInfoPage() {
                 <img
                   className="edit-user-info__profile-image"
                   src={userInfo?.photourl ?? ""}
+                  referrerPolicy="no-referrer"
                   alt="Profile Image"
                 />
               </div>

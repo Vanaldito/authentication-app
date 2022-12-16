@@ -31,7 +31,12 @@ export default function Navbar({ displayUserInfo }: NavbarProps) {
             className="navbar__user-info"
             onClick={toggleDisplayDropdownMenu}
           >
-            <img className="navbar__profile-image" src={userInfo.photourl} />
+            <img
+              className="navbar__profile-image"
+              src={userInfo.photourl}
+              referrerPolicy="no-referrer"
+              alt="Profile Image"
+            />
             <div>{userInfo.name}</div>
             <ArrowIcon />
           </div>
