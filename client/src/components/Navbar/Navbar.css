@@ -7,11 +7,22 @@
 .navbar__user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .navbar__profile-image {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
+}
+
+@media (min-width: 500px) {
+  .navbar__user-info {
+    gap: 10px;
+  }
+
+  .navbar__profile-image {
+    width: 40px;
+    height: 40px;
+  }
 }
