@@ -21,9 +21,9 @@ export default function EditInfoPage() {
     clearError: clearUserInfoError,
   } = useUserInfo();
 
-  const [name, setName] = useState(userInfo?.name ?? "");
-  const [bio, setBio] = useState(userInfo?.bio ?? "");
-  const [phone, setPhone] = useState(userInfo?.phone ?? "");
+  const [name, setName] = useState<string | undefined>(undefined);
+  const [bio, setBio] = useState<string | undefined>(undefined);
+  const [phone, setPhone] = useState<string | undefined>(undefined);
 
   const [error, setError] = useState("");
 
@@ -79,7 +79,7 @@ export default function EditInfoPage() {
               </div>
               <div className="edit-user-info__row">
                 <FormField
-                  value={name}
+                  value={name ?? userInfo?.name}
                   onChange={changeHandler(setName)}
                   placeholder="Enter your name..."
                   label="Name"
@@ -87,7 +87,7 @@ export default function EditInfoPage() {
               </div>
               <div className="edit-user-info__row">
                 <FormField
-                  value={bio}
+                  value={bio ?? userInfo?.bio}
                   onChange={changeHandler(setBio)}
                   placeholder="Enter your bio..."
                   label="Bio"
@@ -95,7 +95,7 @@ export default function EditInfoPage() {
               </div>
               <div className="edit-user-info__row">
                 <FormField
-                  value={phone}
+                  value={phone ?? userInfo?.phone}
                   onChange={changeHandler(setPhone)}
                   placeholder="Enter your phone..."
                   label="Phone"
