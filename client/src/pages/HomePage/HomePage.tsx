@@ -13,7 +13,7 @@ export default function HomePage() {
         <Loader />
       ) : (
         <div className="home-page">
-          <Navbar />
+          <Navbar displayUserInfo={true} />
           <header className="home-page__header">
             <h1 className="home-page__title">Personal Info</h1>
             <p className="home-page__description">

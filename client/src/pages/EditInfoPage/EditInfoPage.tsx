@@ -58,7 +58,7 @@ export default function EditInfoPage() {
         <Loader />
       ) : (
         <div className="edit-info-page">
-          <Navbar />
+          <Navbar displayUserInfo={true} />
           <div className="edit-user-info">
             <header className="edit-user-info__header">
               <div>
