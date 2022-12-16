@@ -62,7 +62,9 @@ export default function Navbar({ displayUserInfo }: NavbarProps) {
               displayDropdownMenu ? "navbar__dropdown-menu--displayed" : ""
             }`.trim()}
           >
-            <button className="navbar__logout-button">Logout</button>
+            <a href="/logout" className="navbar__logout-link">
+              Logout
+            </a>
           </div>
         </div>
       ) : null}

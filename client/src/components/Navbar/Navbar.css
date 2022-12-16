@@ -33,14 +33,19 @@
   position: absolute;
   right: 0;
   top: 60px;
+  background-color: #fff;
+  z-index: 100;
 }
 
 .navbar__dropdown-menu--displayed {
   display: block;
 }
 
-.navbar__logout-button {
-  padding: 11px;
+.navbar__logout-link {
+  padding: 11px 25px;
+  text-decoration: none;
+  display: inline-block;
+  box-sizing: border-box;
   color: #eb5757;
   width: 100%;
   border-radius: 12px;
@@ -50,7 +55,7 @@
   background-color: #fff;
 }
 
-.navbar__logout-button:hover {
+.navbar__logout-link:hover {
   background-color: #eb5757;
   color: white;
 }

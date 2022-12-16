@@ -40,6 +40,10 @@ async function main() {
     res.sendFile(path.join(__dirname, process.env.VEREX_HTML_PATH as string));
   });
 
+  app.get("/logout", (_req, res) => {
+    res.clearCookie("auth-token").redirect("/login");
+  });
+
   /* Add your routes here */
 
   if (process.env.VEREX_ENV === "development") {
