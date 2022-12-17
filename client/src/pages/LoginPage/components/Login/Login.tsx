@@ -8,7 +8,7 @@ import {
   Modal,
   SocialProfiles,
 } from "../../../../components";
-import { useAuth, useFetchAndLoad, useUserInfo } from "../../../../hooks";
+import { useAuth, useFetchAndLoad } from "../../../../hooks";
 import { login } from "../../../../services";
 
 import "./Login.css";
@@ -22,7 +22,6 @@ export default function SignUp() {
   const { loading, callEndpoint } = useFetchAndLoad();
 
   const { setIsLogged } = useAuth();
-  const { reloadUserInfo } = useUserInfo();
 
   const navigate = useNavigate();
 
@@ -61,7 +60,6 @@ export default function SignUp() {
           setError(res.error);
         } else {
           setIsLogged(true);
-          reloadUserInfo();
           navigate("/");
         }
       })

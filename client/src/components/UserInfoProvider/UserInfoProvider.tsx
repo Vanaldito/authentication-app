@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserInfoContext } from "../../contexts";
-import { useFetchAndLoad } from "../../hooks";
+import { useAuth, useFetchAndLoad } from "../../hooks";
 import { UserInfo } from "../../models";
 import { getUserInfo } from "../../services";
 
@@ -9,6 +9,8 @@ interface UserInfoProviderProps {
 }
 
 export default function UserInfoProvider({ children }: UserInfoProviderProps) {
+  const { isLogged } = useAuth();
+
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null);
   const [error, setError] = useState<null | string>(null);
 
@@ -30,8 +32,9 @@ export default function UserInfoProvider({ children }: UserInfoProviderProps) {
   }
 
   useEffect(() => {
+    if (!isLogged) return;
     reloadUserInfo();
-  }, []);
+  }, [isLogged]);
 
   return (
     <UserInfoContext.Provider
