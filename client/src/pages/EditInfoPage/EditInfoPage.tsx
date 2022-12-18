@@ -21,6 +21,12 @@ export default function EditInfoPage() {
     clearError: clearUserInfoError,
   } = useUserInfo();
 
+  const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+  const [editingPhotoUrl, setEditingPhotoUrl] = useState(false);
+  const [photoUrlInputValue, setPhotoUrlInputValue] = useState<
+    string | undefined
+  >(undefined);
+
   const [name, setName] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState<string | undefined>(undefined);
   const [phone, setPhone] = useState<string | undefined>(undefined);
@@ -43,13 +49,21 @@ export default function EditInfoPage() {
 
     if (savingInfo) return;
 
-    callUpdateInfoEndpoint(updateUserInfo({ name, bio, phone })).then(res => {
-      if (res.error) return setError(res.error);
-      else {
-        reloadUserInfo();
-        navigate("/");
+    callUpdateInfoEndpoint(updateUserInfo({ name, bio, phone, photoUrl })).then(
+      res => {
+        if (res.error) return setError(res.error);
+        else {
+          reloadUserInfo();
+          navigate("/");
+        }
       }
-    });
+    );
+  }
+
+  function updatePhotoUrl(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setPhotoUrl(photoUrlInputValue);
+    setEditingPhotoUrl(false);
   }
 
   return (
@@ -71,8 +85,9 @@ export default function EditInfoPage() {
             <form className="edit-user-info__table" onSubmit={submitHandler}>
               <div className="edit-user-info__row">
                 <img
+                  onClick={() => setEditingPhotoUrl(true)}
                   className="edit-user-info__profile-image"
-                  src={userInfo?.photourl ?? ""}
+                  src={photoUrl ?? userInfo?.photourl}
                   referrerPolicy="no-referrer"
                   alt="Profile Image"
                 />
@@ -115,6 +130,20 @@ export default function EditInfoPage() {
               </div>
             </form>
           </div>
+          {editingPhotoUrl && (
+            <Modal closeModal={() => setEditingPhotoUrl(false)}>
+              <form onSubmit={updatePhotoUrl}>
+                <FormField
+                  value={photoUrlInputValue}
+                  onChange={changeHandler(setPhotoUrlInputValue)}
+                  placeholder="Enter the photo url..."
+                />
+                <button className="edit-user-info__update-photo-button">
+                  OK
+                </button>
+              </form>
+            </Modal>
+          )}
           {userInfoError && (
             <Modal closeModal={clearUserInfoError}>{userInfoError}</Modal>
           )}

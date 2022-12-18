@@ -60,7 +60,8 @@
   object-fit: cover;
 }
 
-.edit-user-info__submit-button {
+.edit-user-info__submit-button,
+.edit-user-info__update-photo-button {
   text-align: center;
   font-size: 16px;
   padding: 9px 20px;
@@ -71,8 +72,13 @@
   cursor: pointer;
 }
 
-.edit-user-info__submit-button:hover {
+.edit-user-info__submit-button:hover,
+.edit-user-info__update-photo-button:hover {
   background-color: #2e70cd;
+}
+
+.edit-user-info__update-photo-button {
+  margin-top: 12px;
 }
 
 @media (min-width: 500px) {
