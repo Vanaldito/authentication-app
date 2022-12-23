@@ -5,6 +5,7 @@ import { ensureAuthenticated } from "./src/middlewares";
 import { database } from "./src/models";
 
 import { apiRouter, oauthRouter } from "./src/routes/";
+import env from "./environment";
 
 async function main() {
   await database.connect(err => {
@@ -57,7 +58,7 @@ async function main() {
       .sendFile(path.join(__dirname, process.env.VEREX_HTML_PATH as string));
   });
 
-  const PORT = 5000;
+  const { PORT = 8080 } = env;
 
   app.listen(PORT, () => {
     console.log();
