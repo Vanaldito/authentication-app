@@ -18,6 +18,5 @@ export default async function getGoogleUserInfo(
       headers: { Authorization: "Bearer " + access_token },
     }
   );
-  console.log(res);
   return await res.json();
 }

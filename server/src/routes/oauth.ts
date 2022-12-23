@@ -120,8 +120,6 @@ oauthRouter.get("/code/google", async (req, res) => {
       .json({ status: 500, error: "internal server error" });
   }
 
-  console.log(access_token);
-
   let userInfo;
   try {
     userInfo = await getGoogleUserInfo(access_token);
@@ -131,8 +129,6 @@ oauthRouter.get("/code/google", async (req, res) => {
       .status(500)
       .json({ status: 500, error: "internal server error" });
   }
-
-  console.log(userInfo);
 
   // Add a space to the email to prevent another user can copy it.
   const userEmail = userInfo.email
