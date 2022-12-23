@@ -84,13 +84,17 @@ export default function EditInfoPage() {
             </header>
             <form className="edit-user-info__table" onSubmit={submitHandler}>
               <div className="edit-user-info__row">
-                <img
+                <figure
+                  className="edit-user-info__profile-figure"
                   onClick={() => setEditingPhotoUrl(true)}
-                  className="edit-user-info__profile-image"
-                  src={photoUrl ?? userInfo?.photourl}
-                  referrerPolicy="no-referrer"
-                  alt="Profile Image"
-                />
+                >
+                  <img
+                    className="edit-user-info__profile-image"
+                    src={photoUrl ?? userInfo?.photourl}
+                    referrerPolicy="no-referrer"
+                    alt="Profile Image"
+                  />
+                </figure>
               </div>
               <div className="edit-user-info__row">
                 <FormField

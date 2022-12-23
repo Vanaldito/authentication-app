@@ -60,6 +60,26 @@
   object-fit: cover;
 }
 
+.edit-user-info__profile-figure {
+  position: relative;
+  cursor: pointer;
+}
+
+.edit-user-info__profile-figure:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 72px;
+  height: 72px;
+  background-color: #00000030;
+  background-image: url("/camera.svg");
+  background-size: 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .edit-user-info__submit-button,
 .edit-user-info__update-photo-button {
   text-align: center;
