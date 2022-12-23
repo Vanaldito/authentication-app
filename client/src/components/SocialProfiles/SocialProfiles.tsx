@@ -15,12 +15,6 @@ export default function SocialProfiles() {
         </a>
       </li>
       <li>
-        <img src="/Facebook.svg" alt="facebook logo" width={43} height={43} />
-      </li>
-      <li>
-        <img src="/Twitter.svg" alt="twitter logo" width={43} height={43} />
-      </li>
-      <li>
         <a
           href={`https://github.com/login/oauth/authorize?client_id=${
             import.meta.env.VITE_GITHUB_CLIENT_ID
